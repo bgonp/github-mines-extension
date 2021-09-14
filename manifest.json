@@ -1,0 +1,11 @@
+{
+  "name": "GitHub Minesweeper",
+  "description": "Minesweeper game on GitHub profile page using calendar contributions chart",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "host_permissions": ["https://github.com/"],
+  "content_scripts": [{
+    "matches": ["https://github.com/*"],
+    "js": ["bundle.js"]
+  }]
+}

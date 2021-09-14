@@ -1,0 +1,19 @@
+{
+  "name": "chrome-github-mines",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild ./src/main.ts --bundle --minify --outfile=bundle.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.31.1",
+    "@typescript-eslint/parser": "4.31.1",
+    "esbuild": "0.12.27",
+    "eslint": "7.32.0"
+  }
+}
