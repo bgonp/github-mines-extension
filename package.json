@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild ./src/main.ts --bundle --minify --outfile=bundle.js"
+    "build": "esbuild ./src/main.ts --bundle --minify --outfile=build/index.js",
+    "dev": "esbuild ./src/main.ts --bundle --watch --outfile=build/index.js",
+    "lint": "eslint --ext .ts src/",
+    "prebuild": "npm run lint"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +17,7 @@
     "@typescript-eslint/eslint-plugin": "4.31.1",
     "@typescript-eslint/parser": "4.31.1",
     "esbuild": "0.12.27",
-    "eslint": "7.32.0"
+    "eslint": "7.32.0",
+    "typescript": "4.4.3"
   }
 }

@@ -1,9 +1,11 @@
-import getContainer from './getConatiner'
-import injectGame from './injectGame'
+import Game from './game/Game'
+import injectGame from './inject/injectGame'
 import isProfilePage from './utils/isProfilePage'
+
+import './css/style.css'
 
 (() => {
   if (!isProfilePage()) return
-  const container = getContainer()
-  injectGame(container)
+  const game = new Game()
+  injectGame(game)
 })()
