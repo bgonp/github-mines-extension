@@ -1,0 +1,11 @@
+export const PLAY_BTN = 'Play'
+export const PLAY_MSG = 'Select mines quantity and press this button to play minesweeper'
+export const DESTROY_BTN = 'Destroy'
+export const DESTROY_MSG =
+  'This will remove the game until you reload the page. Are you sure?'
+export const MINES_LBL = 'Mines:'
+export const WIN_MSG = 'You win! 😀'
+export const LOSE_MSG = 'You lose... 😭'
+export const ERROR_NO_CONTROLS = 'CGM: No container for controls'
+export const ERROR_NO_BOARD = 'CGM: No container for board'
+export const ERROR_NO_GRID = 'CGM: No contributions day cells'
