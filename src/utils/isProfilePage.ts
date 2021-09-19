@@ -1,5 +1,6 @@
-export default function isProfilePage(): boolean {
-  const pathname = window.location.pathname
-  const [begin, user, ...rest] = pathname.split('/')
-  return begin === '' && user && rest.length === 0
+const isProfilePage = (pathname: string): boolean => {
+  const splitted = pathname.split('/').filter(part => part !== '')
+  return splitted.length === 1
 }
+
+export default isProfilePage
