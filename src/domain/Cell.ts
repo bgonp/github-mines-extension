@@ -13,13 +13,17 @@ class Cell extends Observable {
     this.minesAround = 0
   }
 
+  get hasMine(): boolean {
+    return this.#hasMine
+  }
+
   set hasMine(hasMine: boolean) {
     this.#hasMine = hasMine
     this.notify('hasMine')
   }
 
-  get hasMine(): boolean {
-    return this.#hasMine
+  get hasFlag(): boolean {
+    return this.#hasFlag
   }
 
   set hasFlag(hasFlag: boolean) {
@@ -27,8 +31,8 @@ class Cell extends Observable {
     this.notify('hasFlag')
   }
 
-  get hasFlag(): boolean {
-    return this.#hasFlag
+  get isOpen(): boolean {
+    return this.#isOpen
   }
 
   set isOpen(isOpen: boolean) {
@@ -36,17 +40,13 @@ class Cell extends Observable {
     this.notify('isOpen')
   }
 
-  get isOpen(): boolean {
-    return this.#isOpen
+  get minesAround(): number {
+    return this.#minesAround
   }
 
   set minesAround(minesAround: number) {
     this.#minesAround = minesAround
     this.notify('minesAround')
-  }
-
-  get minesAround(): number {
-    return this.#minesAround
   }
 }
 

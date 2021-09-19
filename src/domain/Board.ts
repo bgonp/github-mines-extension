@@ -64,11 +64,10 @@ class Board {
   private openAround(x: number, y: number) {
     for (let i = x - 1; i <= x + 1; i++) {
       for (let j = y - 1; j <= y + 1; j++) {
-        this.open(i, j)
+        if (i !== x || j !== y) this.open(i, j)
       }
     }
   }
-
 
   private outOfBounds(x: number, y: number): boolean {
     return x < 0 || x >= COLS || y < 0 || y >= ROWS

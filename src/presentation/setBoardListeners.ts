@@ -1,10 +1,11 @@
-import Cell from 'domain/Cell'
-import Game from 'domain/Game'
+import { subscribe, subscribeCell, unsubscribe } from 'application'
+import GameStatus from 'domain/GameStatus'
 import { $ } from 'utils/dom'
 
 export const setMineButtonListeners = (
   button: Element,
-  cell: Cell,
+  x: number,
+  y: number,
   createOnOpen: (mines: number) => Element
 ): Element => {
   let minesAround = 0
@@ -26,33 +27,36 @@ export const setMineButtonListeners = (
     }
   }
 
-  cell.subscribe('minesAround', onMinesAroundChange)
-  cell.subscribe('hasMine', onHasMineChange)
-  cell.subscribe('hasFlag', onHasFlagChange)
-  cell.subscribe('isOpen', onIsOpenChange)
+  subscribeCell(x, y, 'minesAround', onMinesAroundChange)
+  subscribeCell(x, y, 'hasMine', onHasMineChange)
+  subscribeCell(x, y, 'hasFlag', onHasFlagChange)
+  subscribeCell(x, y, 'isOpen', onIsOpenChange)
 
   return button
 }
 
-export const setMinesColListeners = (
-  col: Element,
-  game: Game,
-  delay: number
-): Element => {
-  game.subscribe('playing', function onPlaying() {
+export const setMinesColListeners = (col: Element, delay: number): Element => {
+  const onPlaying = (status: GameStatus) => {
+    if (status !== 'playing') return
     setTimeout(() => col.classList.remove('cgm-hidden'), delay)
-    game.unsubscribe('playing', onPlaying)
-  })
+    unsubscribe('status', onPlaying)
+  }
+  subscribe('status', onPlaying)
 
   return col
 }
 
-export const setMinesGridListeners = (grid: Element, game: Game): Element => {
-  game.subscribe('destroyed', () => grid.remove())
-  game.subscribe('playing', function onPlaying() {
+export const setMinesGridListeners = (grid: Element): Element => {
+  const onDestroyed = (status: GameStatus) => {
+    if (status === 'destroyed') grid.remove()
+  }
+  const onPlaying = (status: GameStatus) => {
+    if (status !== 'playing') return
     grid.classList.add('cgm-started')
-    game.unsubscribe('playing', onPlaying)
-  })
+    unsubscribe('status', onPlaying)
+  }
+  subscribe('status', onDestroyed)
+  subscribe('status', onPlaying)
 
   return grid
 }

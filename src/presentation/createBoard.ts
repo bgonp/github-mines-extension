@@ -1,6 +1,7 @@
-import Cell from 'domain/Cell'
-import Game from 'domain/Game'
+import { openCell, toggleFlag } from 'application'
+import { COLS, ROWS } from 'constants/game'
 import { create } from 'utils/dom'
+
 import getGridSizes from './getGridSizes'
 import {
   setMineButtonListeners,
@@ -12,8 +13,6 @@ const DELAY_MULTIPLIER = 15
 
 let dom: Document
 let sizes: ReturnType<typeof getGridSizes>
-
-type OnClick = Parameters<typeof create>[0]['onClick']
 
 const createMineBtnSvg = () => {
   const classes = ['ContributionCalendar-day']
@@ -34,60 +33,59 @@ const createMinesAroundSpan = (minesAround: number) => {
   return span
 }
 
-const createMineBtn = (cell: Cell, onClick: OnClick) => {
+const createMineBtn = (x: number, y: number) => {
   const tag = 'button'
   const classes = ['cgm-button-mine']
   const children = [createMineBtnSvg()]
   const type = 'button'
+  const onClick = {
+    primary: () => openCell(x, y),
+    secondary: () => toggleFlag(x, y),
+  }
 
   const button = create({ tag, classes, onClick, children, type }, dom) as HTMLElement
   button.style.marginTop = `${sizes.cellGap}px`
   button.style.marginLeft = `${sizes.cellGap}px`
 
-  return setMineButtonListeners(button, cell, createMinesAroundSpan)
+  return setMineButtonListeners(button, x, y, createMinesAroundSpan)
 }
 
-const createMinesCol = (cells: Cell[], onClick: (y: number) => OnClick): Element => {
+const createMinesCol = (x: number): Element => {
   const tag = 'div'
   const classes = ['cgm-mines-col', 'cgm-hidden']
-  const children = cells.map((cell: Cell, y: number) => createMineBtn(cell, onClick(y)))
+  const children = [...Array(ROWS).keys()].map((y) => createMineBtn(x, y))
 
   return create({ tag, classes, children }, dom)
 }
 
-const createMinesGrid = (game: Game): Element => {
+const createMinesGrid = (): Element => {
   const tag = 'div'
   const classes = ['cgm-mines-grid']
-  const children = game.cells.map((cells: Cell[], x: number) => {
-    const onClick = (y: number) => ({
-      primary: () => game.open(x, y),
-      secondary: () => game.flag(x, y),
-    })
-
-    const col = createMinesCol(cells, onClick)
-    return setMinesColListeners(col, game, x * DELAY_MULTIPLIER)
+  const children = [...Array(COLS).keys()].map((x) => {
+    const col = createMinesCol(x)
+    return setMinesColListeners(col, x * DELAY_MULTIPLIER)
   })
 
   const minesGrid = create({ tag, classes, children }, dom) as HTMLElement
   minesGrid.style.right = `${sizes.right}px`
   minesGrid.style.bottom = `${sizes.bottom}px`
 
-  return setMinesGridListeners(minesGrid, game)
+  return setMinesGridListeners(minesGrid)
 }
 
-const createContainer = (game: Game): Element => {
+const createContainer = (): Element => {
   const tag = 'div'
   const classes = ['cgm-board']
-  const children = [createMinesGrid(game)]
+  const children = [createMinesGrid()]
 
   return create({ tag, classes, children }, dom)
 }
 
-const createBoard = (game: Game, document: Document, grid: Element): Element => {
+const createBoard = (document: Document, grid: Element): Element => {
   dom = document
   sizes = getGridSizes(grid)
 
-  return createContainer(game)
+  return createContainer()
 }
 
 export default createBoard

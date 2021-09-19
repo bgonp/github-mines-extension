@@ -1,8 +1,8 @@
+import { destroy, setMines, startGame } from 'application'
 import { MINES } from 'constants/game'
 import {
   DESTROY_BTN, DESTROY_MSG, LOSE_MSG, MINES_LBL, PLAY_BTN, PLAY_MSG, WIN_MSG
 } from 'constants/literals'
-import Game from 'domain/Game'
 import { create } from 'utils/dom'
 import {
   setContainerListeners,
@@ -14,74 +14,77 @@ import {
 
 let dom: Document
 
-const createLabelButton = (game: Game) => {
+const createLabelButton = () => {
   const tag = 'button'
   const classes = ['btn', 'btn-sm', 'BtnGroup-item']
   const text = MINES_LBL
 
   const button = create({ tag, classes, text }, dom)
 
-  return setLabelButtonListeners(button, game)
+  return setLabelButtonListeners(button)
 }
 
-const createMinesButtons = (game: Game): Element[] => {
+const createMinesButtons = (): Element[] => {
   const tag = 'button'
   const classes = ['cgm-button-mines', 'btn', 'btn-sm', 'BtnGroup-item']
   const type = 'button'
 
   const createButton = (mines: number) => {
     const text = `${mines}`
-    const onClick = { primary: () => game.mines = mines }
+    const onClick = { primary: () => setMines(mines) }
   
     const button = create({ tag, classes, text, type, onClick }, dom)
 
-    return setMinesButtonListeners(button, game, mines)
+    return setMinesButtonListeners(button, mines)
   }
 
   return MINES.map((mines) => createButton(mines))
 }
 
-const createPlayButton = (game: Game): Element => {
+const createPlayButton = (): Element => {
   const tag = 'button'
   const classes = ['btn', 'btn-sm', 'btn-primary', 'ml-1', 'tooltipped', 'tooltipped-sw']
   const text = PLAY_BTN
-  const onClick = { primary: () => game.start() }
+  const onClick = { primary: startGame }
   const tooltip = PLAY_MSG
+  const disabled = 'disabled'
 
-  const button = create({ tag, classes, text, onClick, 'aria-label': tooltip }, dom)
+  const button = create({
+    tag, classes, text, onClick, 'aria-label': tooltip, disabled
+  }, dom)
 
-  return setPlayButtonListeners(button, game)
+  return setPlayButtonListeners(button)
 }
 
-const createDestroyButton = (game: Game): Element => {
+const createDestroyButton = (): Element => {
   const tag = 'button'
   const classes = ['btn', 'btn-sm', 'btn-danger', 'ml-1']
   const text = DESTROY_BTN
   const message = DESTROY_MSG
-  const onClick = { primary: () => confirm(message) && game.destroy() }
+  const onClick = { primary: () => { if (confirm(message)) destroy() } }
 
   return create({ tag, classes, text, onClick }, dom)
 }
 
-const createStatusSpan = (game: Game): Element => {
+const createStatusSpan = (): Element => {
   const tag = 'span'
   const classes = ['f4', 'mr-3']
 
   const span = create({ tag, classes, text: '' }, dom)
 
-  return setStatusSpanListeners(span, game, { win: WIN_MSG, lose: LOSE_MSG })
+  return setStatusSpanListeners(span, WIN_MSG, LOSE_MSG)
 }
 
-const createContainer = (game: Game): Element => {
+const createContainer = (): Element => {
   const tag = 'div'
   const buttonsClasses = ['BtnGroup']
   const controlsClasses = ['cgm-controls', 'mb-2']
 
-  const label = createLabelButton(game)
-  const minesButtons = createMinesButtons(game)
-  const playButton = createPlayButton(game)
-  const closeButton = createDestroyButton(game)
-  const statusNotice = createStatusSpan(game)
+  const label = createLabelButton()
+  const minesButtons = createMinesButtons()
+  const playButton = createPlayButton()
+  const closeButton = createDestroyButton()
+  const statusNotice = createStatusSpan()
 
   const buttons = create({
     tag,
@@ -95,13 +98,13 @@ const createContainer = (game: Game): Element => {
     children: [statusNotice, buttons, playButton, closeButton]
   }, dom)
 
-  return setContainerListeners(controls, game)
+  return setContainerListeners(controls)
 }
 
-const createControls = (game: Game, document: Document): Element => {
+const createControls = (document: Document): Element => {
   dom = document
 
-  return createContainer(game)
+  return createContainer()
 }
 
 export default createControls
