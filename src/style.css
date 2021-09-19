@@ -1,0 +1,67 @@
+.cgm-controls {
+  align-items: center;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.cgm-button-mines[aria-selected="true"][disabled] {
+  color: var(--color-btn-primary-bg);
+}
+
+.cgm-board {
+  position: relative;
+}
+
+.cgm-board svg {
+  display: block;
+}
+
+.cgm-mines-grid {
+  display: none;
+  flex-direction: row;
+  margin: 2px;
+  position: absolute;
+}
+
+.cgm-mines-grid.cgm-started {
+  display: flex;
+}
+
+.cgm-button-mine {
+  background: var(--color-canvas-default);
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  margin-bottom: -4px;
+  margin-right: -4px;
+  padding: 2px;
+  position: relative;
+}
+
+.cgm-opened svg {
+  visibility: hidden;
+}
+
+.cgm-exploded svg rect {
+  fill: var(--color-danger-emphasis)!important;
+}
+
+.cgm-mines-col {
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.2s;
+}
+
+.cgm-hidden {
+  opacity: 0;
+}
+
+.cgm-mines-around {
+  color: var(--color-text-secondary);
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+}
