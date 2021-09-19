@@ -34,6 +34,8 @@ export const setPlayButtonListeners = (button: Element): Element => {
   }
   const onMinesChange = () => {
     button.removeAttribute('disabled')
+    button.removeAttribute('aria-label')
+    button.classList.remove('tooltipped')
     unsubscribe('mines', onMinesChange)
   }
   subscribe('status', preventDestroyed(onStatusChange))
