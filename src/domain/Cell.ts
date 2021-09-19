@@ -6,6 +6,13 @@ class Cell extends Observable {
   #isOpen = false
   #minesAround = 0
 
+  reset(): void {
+    this.hasMine = false
+    this.hasFlag = false
+    this.isOpen = false
+    this.minesAround = 0
+  }
+
   set hasMine(hasMine: boolean) {
     this.#hasMine = hasMine
     this.notify('hasMine')
