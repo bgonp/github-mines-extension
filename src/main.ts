@@ -1,11 +1,13 @@
-import Game from './game/Game'
-import injectGame from './inject/injectGame'
-import isProfilePage from './utils/isProfilePage'
+import Game from './domain/Game'
+import injectGame from './presentation/injectGame'
+import isProfilePage from 'utils/isProfilePage'
 
-import './css/style.css'
+import './style.css'
 
-(() => {
-  if (!isProfilePage()) return
+;((win, dom) => {
+  const { pathname } = win.location
+  if (!isProfilePage(pathname)) return
+
   const game = new Game()
-  injectGame(game)
-})()
+  injectGame(game, dom)
+})(window, document)
