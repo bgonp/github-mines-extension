@@ -10,7 +10,7 @@
     "prebuild": "npm run lint && npm run test && node ./scripts/clean.js",
     "postbuild": "node ./scripts/copy.js && node ./scripts/zip.js",
     "test": "jest",
-    "test:watch": "jest --watch --coverage"
+    "test:watch": "jest --watchAll --coverage"
   },
   "keywords": [],
   "author": "",
