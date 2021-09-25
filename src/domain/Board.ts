@@ -28,18 +28,23 @@ class Board {
 
   flag(x: number, y: number): void {
     if (this.outOfBounds(x, y)) return
+
     const cell = this.#cells[x][y]
     if (cell.isOpen) return
+
     cell.hasFlag = !cell.hasFlag
     this.#flags += cell.hasFlag ? -1 : 1
   }
 
   open(x: number, y: number): void {
     if (this.outOfBounds(x, y)) return
+
     const cell = this.#cells[x][y]
     if (cell.isOpen || cell.hasFlag) return
+
     cell.isOpen = true
     this.#safeCells--
+
     if (cell.hasMine) this.#exploded = true
     else if (this.#safeCells === 0) this.#solved = true
     else if (cell.minesAround === 0) this.openAround(x, y)
@@ -64,7 +69,8 @@ class Board {
   private openAround(x: number, y: number) {
     for (let i = x - 1; i <= x + 1; i++) {
       for (let j = y - 1; j <= y + 1; j++) {
-        if (i !== x || j !== y) this.open(i, j)
+        if (i === x || j === y) continue
+        this.open(i, j)
       }
     }
   }
