@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
@@ -9,6 +9,5 @@
     "strict": true,
     "target": "es6"
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/*.test.ts"]
+  "include": ["src/**/*"]
 }
