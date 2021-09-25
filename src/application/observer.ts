@@ -1,7 +1,7 @@
 import Cell from 'domain/Cell'
 import Game from 'domain/Game'
 
-export const subscribe = <T extends keyof Game>(
+export const subscribeGame = <T extends keyof Game>(
   prop: T,
   callback: (value: Game[T]) => void
 ): void => {
@@ -9,7 +9,7 @@ export const subscribe = <T extends keyof Game>(
   game.subscribe(prop, callback)
 }
 
-export const unsubscribe = <T extends keyof Game>(
+export const unsubscribeGame = <T extends keyof Game>(
   prop: T,
   callback: (value: Game[T]) => void
 ): void => {
