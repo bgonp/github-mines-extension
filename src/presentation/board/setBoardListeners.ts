@@ -1,4 +1,4 @@
-import { subscribe, subscribeCell, unsubscribe } from 'application'
+import { subscribeGame, subscribeCell, unsubscribeGame } from 'application'
 import GameStatus from 'domain/GameStatus'
 import { $ } from 'utils/dom'
 
@@ -7,7 +7,7 @@ export const setMineButtonListeners = (
   x: number,
   y: number,
   createOnOpen: (mines: number) => Element
-): Element => {
+): void => {
   let minesAround = 0
   let hasMine = false
 
@@ -31,32 +31,23 @@ export const setMineButtonListeners = (
   subscribeCell(x, y, 'hasMine', onHasMineChange)
   subscribeCell(x, y, 'hasFlag', onHasFlagChange)
   subscribeCell(x, y, 'isOpen', onIsOpenChange)
-
-  return button
 }
 
-export const setMinesColListeners = (col: Element, delay: number): Element => {
+export const setMinesColListeners = (col: Element, delay: number): void => {
   const onPlaying = (status: GameStatus) => {
     if (status !== 'playing') return
     setTimeout(() => col.classList.remove('cgm-hidden'), delay)
-    unsubscribe('status', onPlaying)
+    unsubscribeGame('status', onPlaying)
   }
-  subscribe('status', onPlaying)
 
-  return col
+  subscribeGame('status', onPlaying)
 }
 
-export const setMinesGridListeners = (grid: Element): Element => {
-  const onDestroyed = (status: GameStatus) => {
-    if (status === 'destroyed') grid.remove()
+export const setMinesGridListeners = (grid: Element): void => {
+  const onHidden = (hidden: boolean) => {
+    if (hidden) grid.classList.add('cgm-hidden')
+    else grid.classList.remove('cgm-hidden')
   }
-  const onPlaying = (status: GameStatus) => {
-    if (status !== 'playing') return
-    grid.classList.add('cgm-started')
-    unsubscribe('status', onPlaying)
-  }
-  subscribe('status', onDestroyed)
-  subscribe('status', onPlaying)
 
-  return grid
+  subscribeGame('hidden', onHidden)
 }

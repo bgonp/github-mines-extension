@@ -7,16 +7,20 @@ type Sizes = {
   cellGap: number
 }
 
+type Position = {
+  top: number
+  right: number
+  bottom: number
+  left: number
+}
+
 const getTranslateValues = (item: Element): number[] => {
   const values = item.getAttribute('transform')?.match(/\d+/g)
-  if (!values) throw new Error(ERROR_NO_GRID) // TODO
+  if (!values) throw new Error(ERROR_NO_GRID)
   return values.map(value => parseInt(value))
 }
 
-const getRelativePosition = (
-  item: Element,
-  container: Element
-): { top: number, right: number, bottom: number, left: number } => {
+const getRelativePosition = (item: Element, container: Element): Position => {
   const itemRect = item.getBoundingClientRect()
   const containerRect = container.getBoundingClientRect()
   return {
@@ -35,12 +39,7 @@ const getGridSizes = (grid: Element): Sizes => {
   const horizontalTranslate = getTranslateValues(grid.children[1])[0]
   const cellGap = horizontalTranslate - cellWidth - 1
   
-  return {
-    bottom,
-    right,
-    cellWidth,
-    cellGap
-  }
+  return { bottom, right, cellWidth, cellGap }
 }
 
 export default getGridSizes
