@@ -1,3 +1,3 @@
-type GameStatus = 'waiting' | 'playing' | 'win' | 'lose' | 'destroyed'
+type GameStatus = 'waiting' | 'playing' | 'win' | 'lose'
 
 export default GameStatus

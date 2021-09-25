@@ -9,12 +9,14 @@ class Game extends Observable {
   #mines: number
   #board: Board
   #status: GameStatus
+  #hidden: boolean
 
   private constructor() {
     super()
     this.#mines = 0
     this.#board = new Board()
     this.#status = 'waiting'
+    this.#hidden = true
   }
 
   static getInstance(): Game {
@@ -23,13 +25,13 @@ class Game extends Observable {
   }
 
   start(): void {
-    this.#status = 'playing'
+    this.status = 'playing'
+    this.hidden = false
     this.#board.start(this.#mines)
-    this.notify('status')
     this.notify('flags')
   }
 
-  flag(x: number, y: number): void {
+  toggleFlag(x: number, y: number): void {
     this.#board.flag(x, y)
     this.notify('flags')
   }
@@ -37,22 +39,12 @@ class Game extends Observable {
   open(x: number, y: number): void {
     const board = this.#board
     board.open(x, y)
-    if (board.solved) this.#status = 'win'
-    if (board.exploded) this.#status = 'lose'
-    if (this.#status !== 'playing') this.notify('status')
-  }
-
-  destroy(): void {
-    this.#status = 'destroyed'
-    this.notify('status')
+    if (board.solved) this.status = 'win'
+    if (board.exploded) this.status = 'lose'
   }
 
   get cells(): Cell[][] {
     return this.#board.cells
-  }
-
-  get status(): GameStatus {
-    return this.#status
   }
 
   get flags(): number {
@@ -64,8 +56,29 @@ class Game extends Observable {
   }
 
   set mines(mines: number) {
+    if (this.#mines === mines) return
     this.#mines = mines
     this.notify('mines')
+  }
+
+  get status(): GameStatus {
+    return this.#status
+  }
+
+  private set status(status: GameStatus) {
+    if (this.#status === status) return
+    this.#status = status
+    this.notify('status')
+  }
+
+  get hidden(): boolean {
+    return this.#hidden
+  }
+
+  set hidden(hidden: boolean) {
+    if (this.#hidden === hidden) return
+    this.#hidden = hidden
+    this.notify('hidden')
   }
 }
 
