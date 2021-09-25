@@ -1,12 +1,7 @@
-/* eslint-disable */
 module.exports = {
   preset: 'ts-jest',
   coverageDirectory: '<rootDir>/coverage/',
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts,tsx}',
-    '!<rootDir>/src/**/*.mocks.{ts,tsx}',
-    '!<rootDir>/src/*.d.ts',
-    '!<rootDir>/src/**/index.{ts,tsx}',
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!src/*.d.ts', '!**/__tests__/**'],
+  moduleDirectories: ['node_modules', 'src'],
   testEnvironment: 'jsdom'
 }

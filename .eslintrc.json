@@ -20,5 +20,15 @@
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "max-len": ["error", 90]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    }
+  ]
 }

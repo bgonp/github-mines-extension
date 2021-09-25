@@ -9,7 +9,7 @@
     "lint": "tsc && eslint --ext .ts src/",
     "prebuild": "npm run lint && npm run test",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch --coverage"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +21,6 @@
     "esbuild": "0.12.27",
     "eslint": "7.32.0",
     "jest": "27.2.0",
-    "jsdom": "17.0.0",
     "ts-jest": "27.0.5",
     "ts-node": "10.2.1",
     "typescript": "4.4.3"
