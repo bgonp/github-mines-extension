@@ -3,8 +3,8 @@ const fs = require('fs')
 const path = require('path')
 const JSZip = require('jszip')
 
-const packageJson = require('../package.json')
-const { version } = packageJson
+const manifest = require('../manifest.json')
+const { version } = manifest
 
 const zip = new JSZip()
 const zipPath = path.resolve(__dirname, `../build/github-mines-${version}.zip`)
