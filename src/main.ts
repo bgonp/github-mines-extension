@@ -1,10 +1,6 @@
-import injectGame from './presentation/injectGame'
+import injectGameWhenReady from 'presentation/injectGameWhenReady'
 import isProfilePage from 'utils/isProfilePage'
 
 import './style.css'
 
-;((win, dom) => {
-  const { pathname } = win.location
-  if (!isProfilePage(pathname)) return
-  injectGame(dom)
-})(window, document)
+if (isProfilePage()) injectGameWhenReady()

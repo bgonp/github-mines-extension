@@ -1,10 +1,9 @@
 const SVG_XMLNS = 'http://www.w3.org/2000/svg'
 const SVG_TAGS = ['svg', 'path', 'rect', 'text', 'g']
 
-type Props = {
-  tag: string,
-  classes?: string[]
+type Attributes = {
   children?: Element[]
+  classes?: string[]
   text?: string
   onClick?: { primary?: () => void, secondary?: () => void }
   [key: string]: unknown // TODO: rest props should be string
@@ -17,11 +16,11 @@ const defaultPrevented = (callback: () => void) => (e: Event) => {
   callback()
 }
 
-export function create(props: Props, dom: Document): Element {
-  const { tag, classes, children, text, onClick, ...rest } = props
+export function create(tag: string, attr: Attributes = {}): Element {
+  const { classes, children, text, onClick, ...rest } = attr
   const element: Element = isSVGTag(tag)
-    ? dom.createElementNS(SVG_XMLNS, tag)
-    : dom.createElement(tag)
+    ? document.createElementNS(SVG_XMLNS, tag)
+    : document.createElement(tag)
   
   if (text) element.textContent = text
   if (children) children.forEach(child => element.appendChild(child))
@@ -39,12 +38,12 @@ export function create(props: Props, dom: Document): Element {
 
 export const $ = (
   selector: string,
-  parent: Document | Element
+  parent: Document | Element = document
 ): Element | null =>
   parent.querySelector(selector)
 
 export const $$ = (
   selector: string,
-  parent: Document | Element
+  parent: Document | Element = document
 ): Element[] => 
   Array.from(parent.querySelectorAll(selector))
