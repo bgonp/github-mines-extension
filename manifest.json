@@ -6,7 +6,7 @@
   "host_permissions": ["https://github.com/"],
   "content_scripts": [{
     "matches": ["https://github.com/*"],
-    "js": ["build/index.js"],
-    "css": ["build/index.css"]
+    "js": ["./index.js"],
+    "css": ["./index.css"]
   }]
 }
