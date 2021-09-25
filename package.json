@@ -7,7 +7,8 @@
     "build": "esbuild ./src/main.ts --bundle --minify --outfile=build/index.js",
     "dev": "esbuild ./src/main.ts --bundle --watch --outfile=build/index.js",
     "lint": "tsc && eslint --ext .ts src/",
-    "prebuild": "npm run lint && npm run test",
+    "prebuild": "npm run lint && npm run test && node ./scripts/clean.js",
+    "postbuild": "node ./scripts/copy.js && node ./scripts/zip.js",
     "test": "jest",
     "test:watch": "jest --watch --coverage"
   },
@@ -21,6 +22,7 @@
     "esbuild": "0.12.27",
     "eslint": "7.32.0",
     "jest": "27.2.0",
+    "jszip": "3.7.1",
     "ts-jest": "27.0.5",
     "ts-node": "10.2.1",
     "typescript": "4.4.3"
