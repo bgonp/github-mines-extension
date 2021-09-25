@@ -18,14 +18,11 @@
 }
 
 .cgm-mines-grid {
-  display: none;
+  display: flex;
   flex-direction: row;
   margin: 2px;
   position: absolute;
-}
-
-.cgm-mines-grid.cgm-started {
-  display: flex;
+  transition: opacity 0.25s ease;
 }
 
 .cgm-button-mine {
@@ -55,10 +52,11 @@
 
 .cgm-hidden {
   opacity: 0;
+  pointer-events: none;
 }
 
 .cgm-mines-around {
-  color: var(--color-text-secondary);
+  color: var(--color-fg-default);
   left: 0;
   position: absolute;
   right: 0;
