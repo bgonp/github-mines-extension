@@ -1,5 +1,5 @@
-import { subscribeGame, subscribeCell, unsubscribeGame } from 'application'
 import GameStatus from 'domain/GameStatus'
+import { subscribeGame, subscribeCell, unsubscribeGame } from 'use-cases'
 import { $ } from 'utils/dom'
 
 export const setMineButtonListeners = (

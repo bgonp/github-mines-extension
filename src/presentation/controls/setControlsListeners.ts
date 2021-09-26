@@ -1,5 +1,5 @@
-import { subscribeGame, unsubscribeGame } from 'application'
 import GameStatus from 'domain/GameStatus'
+import { subscribeGame, unsubscribeGame } from 'use-cases'
 
 export const setStatusSpanListeners = (
   span: Element,

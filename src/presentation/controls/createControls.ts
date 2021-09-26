@@ -1,9 +1,9 @@
-import { setMines, startGame, toggleHide } from 'application'
 import { MINES } from 'constants/game'
 import { EYE_CLOSED_PATH, EYE_OPENED_PATH } from 'constants/icons'
 import {
   HIDDEN_MSG, LOSE_MSG, MINES_BTN, PLAY_BTN, PLAY_MSG, WIN_MSG
 } from 'constants/literals'
+import { setMines, startGame, toggleHide } from 'use-cases'
 import { create } from 'utils/dom'
 
 import {

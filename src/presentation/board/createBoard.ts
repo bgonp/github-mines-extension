@@ -1,6 +1,6 @@
-import { openCell, toggleFlag } from 'application'
 import { COLS, ROWS } from 'constants/game'
 import { onSizesChange } from 'presentation/common/sizesListeners'
+import { openCell, toggleFlag } from 'use-cases'
 import { create } from 'utils/dom'
 
 import {
