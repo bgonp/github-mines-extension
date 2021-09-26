@@ -66,7 +66,6 @@ class Game extends Observable {
   }
 
   private set status(status: GameStatus) {
-    if (this.#status === status) return
     this.#status = status
     this.notify('status')
   }
