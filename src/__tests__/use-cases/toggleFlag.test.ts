@@ -1,14 +1,14 @@
-describe('use-cases/openCell', () => {
+describe('use-cases/toggleFlag', () => {
   const INVALID_STATUS = ['waiting', 'win', 'lose']
 
-  const openMock = jest.fn()
+  const toggleFlagMock = jest.fn()
 
   let status: string
-  let openCell: (x: number, y: number) => void
+  let toggleFlag: (x: number, y: number) => void
 
   class GameMock {
     static getInstance = () => new GameMock()
-    public open = openMock
+    public toggleFlag = toggleFlagMock
     get status() { return status }
     set status(value) { status = value }
   }
@@ -16,23 +16,23 @@ describe('use-cases/openCell', () => {
   beforeEach(() => {
     jest.isolateModules(() => {
       jest.mock('domain/Game', () => GameMock)
-      openCell = require('use-cases').openCell
+      toggleFlag = require('use-cases').toggleFlag
     })
   })
 
   afterEach(() => jest.clearAllMocks())
 
-  it('should open cell if status is playing', () => {
+  it('should toggle flag if status is playing', () => {
     status = 'playing'
-    openCell(6, 5)
-    expect(openMock).toBeCalledWith(6, 5)
+    toggleFlag(2, 5)
+    expect(toggleFlagMock).toBeCalledWith(2, 5)
   })
 
   it.each(INVALID_STATUS)(
     'should do nothing if status is %p',
     (invalidStatus) => {
       status = invalidStatus
-      openCell(1, 2)
-      expect(openMock).not.toBeCalled()
+      toggleFlag(3, 1)
+      expect(toggleFlagMock).not.toBeCalled()
     })
 })
