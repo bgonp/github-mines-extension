@@ -3,7 +3,6 @@
   "name": "GitHub Minesweeper",
   "version": "1.0.0",
 
-  "default_locale": "en",
   "description": "Minesweeper game on GitHub profile page using calendar contributions chart",
   "icons": {
     "16": "icon16.png",
