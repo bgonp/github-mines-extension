@@ -36,6 +36,7 @@ describe('domain/Board', () => {
     const mines = countMines(board)
 
     expect(mines).toBe(10)
+    expect(board.flags).toBe(10)
   })
 
   it('should not start if mines amount is above max', () => {
