@@ -10,9 +10,7 @@ describe('presentation/common/sizesListeners', () => {
     setSizes = sizesListeners.setSizes
   })
 
-  afterEach(() => {
-    jest.resetModules()
-  })
+  afterEach(() => jest.resetModules())
 
   it('should run callback on sizes change', () => {
     const callback = jest.fn()

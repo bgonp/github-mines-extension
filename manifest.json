@@ -1,12 +1,22 @@
 {
-  "name": "GitHub Minesweeper",
-  "description": "Minesweeper game on GitHub profile page using calendar contributions chart",
-  "version": "1.0.0",
   "manifest_version": 3,
+  "name": "GitHub Minesweeper",
+  "version": "1.0.0",
+
+  "default_locale": "en",
+  "description": "Minesweeper game on GitHub profile page using calendar contributions chart",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "64": "icon64.png",
+    "128": "icon128.png"
+  },
+
   "host_permissions": ["https://github.com/"],
   "content_scripts": [{
     "matches": ["https://github.com/*"],
-    "js": ["./index.js"],
-    "css": ["./index.css"]
+    "js": ["index.js"],
+    "css": ["index.css"]
   }]
 }
