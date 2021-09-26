@@ -3,10 +3,6 @@ describe('use-cases/setMines', () => {
 
   const minesMock = jest.fn((value) => mines = value)
 
-  let mines: number
-  let status: string
-  let setMines: (mines: number) => void
-
   class GameMock {
     static getInstance = () => new GameMock()
     get status() { return status }
@@ -14,6 +10,10 @@ describe('use-cases/setMines', () => {
     get mines() { return mines }
     set mines(value) { minesMock(value) }
   }
+
+  let mines: number
+  let status: string
+  let setMines: (mines: number) => void
 
   beforeEach(() => {
     jest.isolateModules(() => {
