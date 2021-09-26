@@ -18,10 +18,13 @@ class Board {
   }
 
   start(mines: number): void {
+    if (mines < 0 || mines > COLS * ROWS / 2) return
+
     this.#safeCells = COLS * ROWS - mines
     this.#flags = mines
     this.#solved = false
     this.#exploded = false
+
     this.resetCells()
     this.initMines(mines)
   }
