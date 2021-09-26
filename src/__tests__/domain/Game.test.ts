@@ -1,3 +1,4 @@
+import { COLS, ROWS } from 'constants/game'
 import GameClass from 'domain/Game'
 
 let Game: typeof GameClass
@@ -19,7 +20,6 @@ describe('domain/Game', () => {
   
     expect(game.status).toBe('waiting')
     expect(game.hidden).toBe(true)
-    expect(game.cells).toBeDefined()
     expect(game.flags).toBe(0)
     expect(game.mines).toBe(0)
   })
@@ -31,7 +31,6 @@ describe('domain/Game', () => {
   
     expect(game.status).toBe('playing')
     expect(game.hidden).toBe(false)
-    expect(game.cells).toBeDefined()
     expect(game.flags).toBe(10)
     expect(game.mines).toBe(10)
   })
@@ -62,11 +61,11 @@ describe('domain/Game', () => {
     expect(observer).toHaveBeenCalledWith(10)
 
     game.toggleFlag(1, 1)
-    expect(game.cells[1][1].hasFlag).toBe(true)
+    expect(game.getCell(1, 1).hasFlag).toBe(true)
     expect(observer).toHaveBeenCalledWith(9)
 
     game.toggleFlag(1, 1)
-    expect(game.cells[1][1].hasFlag).toBe(false)
+    expect(game.getCell(1, 1).hasFlag).toBe(false)
     expect(observer).toHaveBeenCalledWith(10)
   })
 
@@ -90,15 +89,15 @@ describe('domain/Game', () => {
     const game = Game.getInstance()
     game.start()
 
-    game.open(1, 1)
-    expect(game.cells[1][1].isOpen).toBe(true)
+    game.open(2, 3)
+    expect(game.getCell(2, 3).isOpen).toBe(true)
   })
 
   it('should open a cell', () => {
     const game = Game.getInstance()
     game.start()
-    game.open(1, 1)
-    expect(game.cells[1][1].isOpen).toBe(true)
+    game.open(4, 5)
+    expect(game.getCell(4, 5).isOpen).toBe(true)
   })
 
   it('should lose the game and notify observers', () => {
@@ -108,11 +107,14 @@ describe('domain/Game', () => {
     game.subscribe('status', observer)
     game.start()
 
-    for (let x = 0; x < game.cells.length; x++) {
-      const y = game.cells[x].findIndex(cell => cell.hasMine)
-      if (y === -1) continue
-      game.open(x, y)
-      break
+    for (let x = 0; x < COLS; x++) {
+      for (let y = 0; y < ROWS; y++) {
+        const cell = game.getCell(x, y)
+        if (cell.hasMine) {
+          game.open(x, y)
+          break
+        }
+      }
     }
 
     expect(game.status).toBe('lose')
@@ -126,11 +128,12 @@ describe('domain/Game', () => {
     game.subscribe('status', observer)
     game.start()
 
-    game.cells.forEach(
-      (col, x) => col.forEach(
-        (cell, y) => cell.hasMine || game.open(x, y)
-      )
-    )
+    for (let x = 0; x < COLS; x++) {
+      for (let y = 0; y < ROWS; y++) {
+        const cell = game.getCell(x, y)
+        if (!cell.hasMine) game.open(x, y)
+      }
+    }
 
     expect(game.status).toBe('win')
     expect(observer).toHaveBeenCalledWith('win')
