@@ -24,6 +24,10 @@ class Game extends Observable {
     return Game.#instance
   }
 
+  getCell(x: number, y: number): Cell {
+    return this.#board.cells[x][y]
+  }
+
   start(): void {
     this.status = 'playing'
     this.hidden = false
@@ -41,10 +45,6 @@ class Game extends Observable {
     board.open(x, y)
     if (board.solved) this.status = 'win'
     if (board.exploded) this.status = 'lose'
-  }
-
-  get cells(): Cell[][] {
-    return this.#board.cells
   }
 
   get flags(): number {

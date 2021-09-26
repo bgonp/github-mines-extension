@@ -24,7 +24,8 @@ export const subscribeCell = <T extends keyof Cell>(
   callback: (value: Cell[T]) => void
 ): void => {
   const game = Game.getInstance()
-  game.cells[x][y].subscribe(prop, callback)
+  const cell = game.getCell(x, y)
+  cell.subscribe(prop, callback)
 }
 
 export const unsubscribeCell = <T extends keyof Cell>(
@@ -34,5 +35,6 @@ export const unsubscribeCell = <T extends keyof Cell>(
   callback: (value: Cell[T]) => void
 ): void => {
   const game = Game.getInstance()
-  game.cells[x][y].unsubscribe(prop, callback)
+  const cell = game.getCell(x, y)
+  cell.unsubscribe(prop, callback)
 }

@@ -72,8 +72,7 @@ class Board {
   private openAround(x: number, y: number) {
     for (let i = x - 1; i <= x + 1; i++) {
       for (let j = y - 1; j <= y + 1; j++) {
-        if (i === x && j === y) continue
-        this.open(i, j)
+        if (i !== x || j !== y) this.open(i, j)
       }
     }
   }
@@ -105,8 +104,7 @@ class Board {
   private setMinesAround(x: number, y: number) {
     for (let i = x - 1; i <= x + 1; i++) {
       for (let j = y - 1; j <= y + 1; j++) {
-        if (this.outOfBounds(i, j)) continue
-        this.#cells[i][j].minesAround++
+        if (!this.outOfBounds(i, j)) this.#cells[i][j].minesAround++
       }
     }
   }
