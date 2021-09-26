@@ -67,7 +67,7 @@ const createMinesCol = (x: number): Element => {
 }
 
 const createMinesGrid = (): Element => {
-  const classes = ['cgm-mines-grid']
+  const classes = ['cgm-mines-grid', 'cgm-hidden']
   const children = [...Array(COLS).keys()].map((x) => {
     const col = createMinesCol(x)
     setMinesColListeners(col, x * DELAY_MULTIPLIER)

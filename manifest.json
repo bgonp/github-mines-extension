@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GitHub Minesweeper",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "description": "Minesweeper game on GitHub profile page using calendar contributions chart",
   "icons": {
