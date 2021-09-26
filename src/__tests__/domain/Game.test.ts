@@ -3,13 +3,9 @@ import GameClass from 'domain/Game'
 let Game: typeof GameClass
 
 describe('domain/Game', () => {
-  beforeEach(() => {
-    Game = require('domain/Game').default
-  })
+  beforeEach(() => Game = require('domain/Game').default)
 
-  afterEach(() => {
-    jest.resetModules()
-  })
+  afterEach(() => jest.resetModules())
 
   it('should be singleton', () => {
     const game1 = Game.getInstance()
