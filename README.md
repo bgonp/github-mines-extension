@@ -1,12 +1,11 @@
-# Chrome GitHub Mines
+# GitHub Mines Browser Extension
 ## Chrome extension to play classic minesweeper game directly on GitHub contributions grid
 
 [INSTALL CHROME EXTENSION](https://chrome.google.com/webstore/detail/github-minesweeper/digafonkkgaabmggclpbabfmfnambeia/related)
 
 ### Description
 
-Minesweeper game on GitHub profile page using calendar contributions chart.
-This extension lets users play the classic minesweeper game directly on GitHub contributions calendar grid.
+Classic minesweeper game on GitHub profile page using calendar contributions chart.
 
 After installing it, you will see main game controls just above the contributions grid. Choose a number of mines and click the "Play" button to start a new game and the contributions grid will become a minesweeper board.
 

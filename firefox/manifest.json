@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "GitHub Minesweeper",
   "version": "1.0.1",
-  "homepage_url": "https://github.com/bgonp/chrome-github-mines#readme",
+  "homepage_url": "https://github.com/bgonp/github-mines-extension#readme",
 
   "description": "Minesweeper game on GitHub profile page using calendar contributions chart",
   "icons": {
