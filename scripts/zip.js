@@ -1,15 +1,16 @@
 /* eslint-disable */
 const path = require('path')
-const AdmZip = require('adm-zip')
+const zip = new (require('adm-zip'))()
 
 const packageJson = require('../package.json')
 const { name, version } = packageJson
 
-const zip = new AdmZip()
-const targetPath = path.resolve(__dirname, `../build/${name}-${version}.zip`)
+const BROWSER_MANIFESTS = {
+  chrome: 'chrome/manifest.json',
+  firefox: 'firefox/manifest.json',
+}
 
 const FILES = [
-  'manifest.json',
   'build/index.js',
   'build/index.css',
   'icons/icon16.png',
@@ -19,9 +20,15 @@ const FILES = [
   'icons/icon128.png'
 ]
 
-FILES.forEach(file => {
-  const filePath = path.resolve(__dirname, `../${file}`)
-  zip.addLocalFile(filePath)
-})
+Object.entries(BROWSER_MANIFESTS).forEach(([browser, manifest]) => {
+  const zipName = `${name}-${browser}-${version}`
+  const targetPath = path.resolve(__dirname, `../build/${zipName}.zip`)
+  const files = [manifest, ...FILES]
 
-zip.writeZip(targetPath)
+  files.forEach(file => {
+    const filePath = path.resolve(__dirname, `../${file}`)
+    zip.addLocalFile(filePath)
+  })
+
+  zip.writeZip(targetPath)
+})
