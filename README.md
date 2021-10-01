@@ -1,7 +1,13 @@
 # GitHub Mines Browser Extension
-## Chrome extension to play classic minesweeper game directly on GitHub contributions grid
+![version](https://img.shields.io/github/package-json/v/bgonp/github-mines-extension)
+![typescript version](https://img.shields.io/github/package-json/dependency-version/bgonp/github-mines-extension/dev/typescript)
+![chrome rating](https://img.shields.io/chrome-web-store/stars/digafonkkgaabmggclpbabfmfnambeia?label=chrome)
+![firefox rating](https://img.shields.io/amo/stars/github-minesweeper?label=firefox)
+### Chrome and Firefox extension to play classic minesweeper game directly on GitHub contributions grid
 
-[INSTALL CHROME EXTENSION](https://chrome.google.com/webstore/detail/github-minesweeper/digafonkkgaabmggclpbabfmfnambeia/related)
+| [Download for Chrome](https://chrome.google.com/webstore/detail/github-minesweeper/digafonkkgaabmggclpbabfmfnambeia/) | [Download for Firefox](https://addons.mozilla.org/en-US/firefox/addon/github-minesweeper/) |
+  |:-------------------:|:--------------------:|
+  | <a href="https://chrome.google.com/webstore/detail/github-minesweeper/digafonkkgaabmggclpbabfmfnambeia/"><img width="32" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.3.1/chrome/chrome.svg" /></a> | <a href="https://addons.mozilla.org/en-US/firefox/addon/github-minesweeper/"><img width="32" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.3.1/firefox/firefox.svg" /></a> |
 
 ### Description
 
