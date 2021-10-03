@@ -1,0 +1,20 @@
+name: GitHub Mines Extension Publish
+on: release
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Publishing chrome extension job initialized"
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+    - run: npm ci
+    - run: npm run build
+    - uses: mnao305/chrome-extension-upload@1.1.1
+      with:
+        file-path: build/github-mines-extension-chrome-*.zip
+        extension-id: digafonkkgaabmggclpbabfmfnambeia
+        client-id: ${{ secrets.CLIENT_ID }}
+        refresh-token: ${{ secrets.REFRESH_TOKEN }}
+        glob: true
